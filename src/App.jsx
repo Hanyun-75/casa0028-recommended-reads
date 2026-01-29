@@ -6,10 +6,13 @@ import PlaqueModal from './components/PlaqueModal'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+function closeModal() {
+  setIsModalOpen(false)
+}
 
   return (
     <div className="mx-auto max-w-screen-xl bg-gray-50 min-h-screen">
-      <TitleBar />
+      <TitleBar title="📚 My Reading List" subtitle="Week 02: Maps & Modals" />
       <MapDisplay />
 
       <div className="p-4">
@@ -28,7 +31,14 @@ function App() {
         </button>
       </div>
 
-      {isModalOpen ? <PlaqueModal /> : null}
+      {isModalOpen ? (
+  <PlaqueModal
+    title="My Reading List"
+    description="This modal content is now passed in as props."
+    onClose={closeModal}
+  />
+) : null}
+
     </div>
   )
 }

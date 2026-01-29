@@ -1,4 +1,4 @@
-function PlaqueModal() {
+function PlaqueModal({ title, description, onClose }) {
   return (
     <div
       className="fixed inset-0 z-50 grid place-content-center bg-black/50 p-4"
@@ -12,13 +12,14 @@ function PlaqueModal() {
             id="modalTitle"
             className="text-xl font-bold text-gray-900 sm:text-2xl"
           >
-            Modal Title
+            {title}
           </h2>
 
           <button
             type="button"
             className="-me-4 -mt-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 focus:outline-none"
             aria-label="Close"
+            onClick={onClose}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,8 +40,7 @@ function PlaqueModal() {
 
         <div className="mt-4">
           <p className="text-pretty text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu
-            consectetur. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {description}
           </p>
         </div>
       </div>
