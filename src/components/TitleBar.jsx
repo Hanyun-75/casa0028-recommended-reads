@@ -1,5 +1,5 @@
 
-function TitleBar({ title = "📚 My Reading List", subtitle }) {
+function TitleBar({ title = "📚 Mapping!", subtitle }) {
   return (
     <header className="bg-white">
       <div className="mx-auto px-4 py-4 sm:px-6 lg:px-8">

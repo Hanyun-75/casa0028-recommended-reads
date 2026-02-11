@@ -1,41 +1,59 @@
 import { useState } from 'react'
 import './tw-styles.css'
+
 import TitleBar from './components/TitleBar'
 import MapDisplay from './components/MapDisplay'
 import PlaqueModal from './components/PlaqueModal'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-function closeModal() {
-  setIsModalOpen(false)
-}
+  const [selectedPlaque, setSelectedPlaque] = useState(null);
+
+  function openModal() {
+    setIsModalOpen(true)
+  }
+
+  function closeModal() {
+    setIsModalOpen(false)
+  }
 
   return (
-    <div className="mx-auto max-w-screen-xl bg-gray-50 min-h-screen">
-      <TitleBar title="📚 My Reading List" subtitle="Week 02: Maps & Modals" />
-      <MapDisplay />
+    <div className="mx-auto max-w-screen-xl min-h-screen bg-gray-50">
+      {/* Title */}
+      <TitleBar subtitle="Week 04: no error pleaseeeeeeee" />
 
-      <div className="p-4">
+      {/* Map */}
+      <MapDisplay
+  longitude={-0.137310}
+  latitude={51.521699}
+  selectedPlaque={selectedPlaque}
+  setSelectedPlaque={setSelectedPlaque}
+  setIsModalOpen={setIsModalOpen}
+/>
+      {/* Buttons */}
+      <div className="p-4 flex gap-2">
         <button
-          className="mr-2 rounded bg-blue-600 px-4 py-2 text-white"
-          onClick={() => setIsModalOpen(true)}
+          className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          onClick={openModal}
         >
           Open modal
         </button>
 
         <button
-          className="rounded bg-gray-600 px-4 py-2 text-white"
-          onClick={() => setIsModalOpen(false)}
+          className="rounded bg-gray-700 px-4 py-2 text-white hover:bg-gray-800"
+          onClick={closeModal}
         >
           Close modal
         </button>
       </div>
 
+      {/* Modal (conditional rendering) */}
       {isModalOpen ? (
   <PlaqueModal
-    title="My Reading List"
-    description="This modal content is now passed in as props."
+    title={selectedPlaque?.properties?.lead_subject_name ?? "My Reading List"}
+    description="Books fetched from OpenLibrary."
     onClose={closeModal}
+    selectedPlaque={selectedPlaque}
   />
 ) : null}
 

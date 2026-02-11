@@ -1,4 +1,26 @@
-function PlaqueModal({ title, description, onClose }) {
+import { useState, useEffect } from 'react';
+
+function PlaqueModal({ title, description, onClose, selectedPlaque }) {
+  console.log("PlaqueModal props:", { title, description, selectedPlaque });
+  const [books, setBooks] = useState([]);
+  // then to update the state
+ 
+  async function fetchBooks() {
+    const author = props.selectedPlaque.properties.lead_subject_name;
+
+    try {
+        const response = await fetch(`https://openlibrary.org/search.json?author=${encodeURIComponent(author)}&limit=10`);
+        const data = await response.json();
+        console.log("Fetched books data:", data);
+        setBooks(data.docs);
+    } catch (error) {
+        console.error("Error fetching books data:", error);
+    }
+}
+  useEffect(() => {
+  fetchBooks();
+}, []);
+
   return (
     <div
       className="fixed inset-0 z-50 grid place-content-center bg-black/50 p-4"
@@ -39,13 +61,11 @@ function PlaqueModal({ title, description, onClose }) {
         </div>
 
         <div className="mt-4">
-          <p className="text-pretty text-gray-700">
-            {description}
-          </p>
+          <p className="text-pretty text-gray-700">{description}</p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default PlaqueModal
+export default PlaqueModal;
